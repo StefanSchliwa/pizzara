@@ -34,7 +34,6 @@ public abstract class GenericDAO<T> {
 
     public void insertEntity(String tableName, T entity) {
         String sql = generateInsertQuery(tableName, entity);
-        System.out.println(sql);
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             setEntityParametersInPreparedStatement(entity, preparedStatement);
             preparedStatement.executeUpdate();

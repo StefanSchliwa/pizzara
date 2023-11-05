@@ -2,7 +2,6 @@ package data;
 
 import model.Ingredient;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class IngredientDAO extends GenericDAO<Ingredient> {
