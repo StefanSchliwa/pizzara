@@ -4,6 +4,7 @@ import model.Ingredient;
 import logic.IngredientService;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class IngredientForm {
@@ -18,8 +19,8 @@ public class IngredientForm {
         this.ingredientListModel = new DefaultListModel<>();
         this.ingredientList = new JList<>(ingredientListModel);
 
-        JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> refreshIngredientList());
+        JButton readButton = new JButton("Read");
+        readButton.addActionListener(e -> readIngredientList());
 
         JButton createButton = new JButton("Create");
         createButton.addActionListener(e -> createIngredient());
@@ -30,20 +31,31 @@ public class IngredientForm {
         JButton deleteButton = new JButton("Delete");
         deleteButton.addActionListener(e -> deleteIngredient());
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 10));
+        buttonPanel.add(readButton);
+        buttonPanel.add(createButton);
+        buttonPanel.add(updateButton);
+        buttonPanel.add(deleteButton);
 
-        frame.add(ingredientList);
-        frame.add(refreshButton);
-        frame.add(createButton);
-        frame.add(updateButton);
-        frame.add(deleteButton);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        frame.add(ingredientList, gbc);
+
+        gbc.gridy = 1;
+        frame.add(buttonPanel, gbc);
+
+        frame.setMinimumSize(new Dimension(400, 200));
 
         frame.pack();
         frame.setVisible(true);
     }
 
-    private void refreshIngredientList() {
+    private void readIngredientList() {
         ingredientListModel.clear();
         List<Ingredient> ingredients = ingredientService.getAllIngredients();
         for (Ingredient ingredient : ingredients) {
@@ -58,7 +70,7 @@ public class IngredientForm {
         newIngredient.setName(name);
         newIngredient.setTyp(typ);
         ingredientService.createIngredient(newIngredient);
-        refreshIngredientList();
+        readIngredientList();
     }
 
     private void updateIngredient() {
@@ -69,7 +81,7 @@ public class IngredientForm {
             selectedIngredient.setName(newName);
             selectedIngredient.setTyp(newTyp);
             ingredientService.updateIngredient(selectedIngredient);
-            refreshIngredientList();
+            readIngredientList();
         } else {
             JOptionPane.showMessageDialog(frame, "Please select an ingredient to update.");
         }
@@ -80,8 +92,8 @@ public class IngredientForm {
         if (selectedIngredient != null) {
             int confirm = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this ingredient?");
             if (confirm == JOptionPane.YES_OPTION) {
-                ingredientService.deleteIngredient(selectedIngredient.getIngredientId());
-                refreshIngredientList();
+                ingredientService.deleteIngredient(selectedIngredient);
+                readIngredientList();
             }
         } else {
             JOptionPane.showMessageDialog(frame, "Please select an ingredient to delete.");

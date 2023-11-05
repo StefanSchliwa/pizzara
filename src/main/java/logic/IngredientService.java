@@ -17,7 +17,7 @@ public class IngredientService {
     }
 
     public List<Ingredient> getAllIngredients() {
-        return ingredientDAO.getAllIngredients();
+        return ingredientDAO.getAll();
     }
 
     public void createIngredient(Ingredient ingredient) {
@@ -28,7 +28,7 @@ public class IngredientService {
         ingredientDAO.update(ingredient);
     }
 
-    public void deleteIngredient(int id) {
-        ingredientDAO.delete(id);
+    public void deleteIngredient(Ingredient ingredient) {
+        ingredientDAO.delete(ingredient);
     }
 }

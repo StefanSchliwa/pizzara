@@ -1,16 +1,19 @@
 package model;
 
+import javax.persistence.Id;
+
 public class Ingredient {
-    private int ingredientId;
+    @Id
+    private int id;
     private String name;
     private String typ;
 
-    public int getIngredientId() {
-        return ingredientId;
+    public int getId() {
+        return id;
     }
 
-    public void setIngredientId(int ingredientId) {
-        this.ingredientId = ingredientId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,6 +34,6 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient ID: " + ingredientId + ", Name: " + name + ", Type: " + typ;
+        return "Ingredient ID: " + id + ", Name: " + name + ", Type: " + typ;
     }
 }
