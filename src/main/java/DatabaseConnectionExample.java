@@ -8,11 +8,11 @@ public class DatabaseConnectionExample {
 
     // JDBC-URL, Benutzername und Passwort der MariaDB-Datenbank
     private static final String URL = "jdbc:mariadb://pizzara.duckdns.org:666/pizzara";
-    private static final String BENUTZERNAME = "pizzara";
-    private static final String PASSWORT = "NB6TMmtKB1rapGoo870V";
+    private static final String USERNAME = "pizzara";
+    private static final String PASSWORD = "NB6TMmtKB1rapGoo870V";
 
     public static void main(String[] args) {
-        try (Connection connection = DriverManager.getConnection(URL, BENUTZERNAME, PASSWORT)) {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 
             // SQL-Abfrage, um Daten aus der Tabelle "ingredient" abzurufen
             String sql = "SELECT * FROM ingredient";
