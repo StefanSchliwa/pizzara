@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.pizzara.gui.IngredientOverviewController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pizzara.gui.IngredientOverviewController">
 
-    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10">
-        <ListView fx:id="ingredientList"/>
+    <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <ListView fx:id="ingredientList" prefHeight="400.0" prefWidth="318.0" />
         <HBox spacing="10">
-            <Button text="Read" onAction="#readIngredientList"/>
-            <Button text="Create" onAction="#createIngredient"/>
-            <Button text="Update" onAction="#updateIngredient"/>
-            <Button text="Delete" onAction="#deleteIngredient"/>
+            <Button onAction="#readIngredientList" text="Read" />
+            <Button onAction="#createIngredient" text="Create" />
+            <Button onAction="#updateIngredient" text="Update" />
+            <Button onAction="#deleteIngredient" text="Delete" />
         </HBox>
     </VBox>
+   <Button layoutX="403.0" layoutY="101.0" mnemonicParsing="false" onAction="#switchToDashboard" text="&lt;-- Dashboard" />
 </AnchorPane>

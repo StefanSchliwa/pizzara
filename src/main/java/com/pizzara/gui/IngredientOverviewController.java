@@ -4,14 +4,32 @@ import com.pizzara.logic.IngredientService;
 import com.pizzara.model.Ingredient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public class IngredientOverviewController {
     private final IngredientService ingredientService = new IngredientService();
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    public void switchToDashboard(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private ListView<Ingredient> ingredientList;
