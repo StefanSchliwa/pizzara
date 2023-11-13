@@ -1,3 +1,5 @@
+package com.pizzara.app;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,7 +22,7 @@ public class DatabaseConnectionExample {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     // Daten aus dem ResultSet lesen und in der Konsole ausgeben
                     while (resultSet.next()) {
-                        int id = resultSet.getInt("ingredient_id");
+                        int id = resultSet.getInt("id");
                         String name = resultSet.getString("name");
                         String typ = resultSet.getString("typ");
 

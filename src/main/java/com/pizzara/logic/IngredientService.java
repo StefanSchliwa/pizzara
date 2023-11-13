@@ -1,7 +1,7 @@
-package logic;
+package com.pizzara.logic;
 
-import data.IngredientDAO;
-import model.Ingredient;
+import com.pizzara.data.IngredientDAO;
+import com.pizzara.model.Ingredient;
 
 import java.util.List;
 

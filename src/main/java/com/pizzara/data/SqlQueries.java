@@ -1,4 +1,4 @@
-package data;
+package com.pizzara.data;
 
 public class SqlQueries {
     public static final String SELECT_INGREDIENT_BY_ID = "SELECT * FROM ingredient WHERE ingredient_id = ?";

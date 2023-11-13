@@ -1,3 +1,5 @@
+package com.pizzara.app;
+
 import com.github.javafaker.Faker;
 
 public class JavaFakerTest {

@@ -1,4 +1,4 @@
-package data;
+package com.pizzara.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

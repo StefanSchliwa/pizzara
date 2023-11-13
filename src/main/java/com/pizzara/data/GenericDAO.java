@@ -1,4 +1,4 @@
-package data;
+package com.pizzara.data;
 
 import javax.persistence.Id;
 import java.lang.reflect.Field;

@@ -1,6 +1,6 @@
-package data;
+package com.pizzara.data;
 
-import model.Ingredient;
+import com.pizzara.model.Ingredient;
 
 import java.util.List;
 

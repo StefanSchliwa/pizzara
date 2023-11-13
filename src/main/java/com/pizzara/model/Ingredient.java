@@ -1,4 +1,4 @@
-package model;
+package com.pizzara.model;
 
 import javax.persistence.Id;
 
