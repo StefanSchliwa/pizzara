@@ -65,7 +65,7 @@ public class IngredientOverviewController {
             typeResult.ifPresent(type -> {
                 Ingredient newIngredient = new Ingredient();
                 newIngredient.setName(nameResult.get());
-                newIngredient.setTyp(type);
+                newIngredient.setType(type);
                 ingredientService.createIngredient(newIngredient);
                 readIngredientList();
             });
@@ -84,7 +84,7 @@ public class IngredientOverviewController {
             Optional<String> newNameResult = nameDialog.showAndWait();
 
             newNameResult.ifPresent(newName -> {
-                TextInputDialog typeDialog = new TextInputDialog(selectedIngredient.getTyp());
+                TextInputDialog typeDialog = new TextInputDialog(selectedIngredient.getType());
                 typeDialog.setHeaderText(null);
                 typeDialog.setTitle("Update Ingredient");
                 typeDialog.setContentText("Enter new ingredient type:");
@@ -92,7 +92,7 @@ public class IngredientOverviewController {
 
                 newTypeResult.ifPresent(newType -> {
                     selectedIngredient.setName(newName);
-                    selectedIngredient.setTyp(newType);
+                    selectedIngredient.setType(newType);
                     ingredientService.updateIngredient(selectedIngredient);
                     readIngredientList();
                 });
