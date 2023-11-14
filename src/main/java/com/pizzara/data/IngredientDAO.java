@@ -2,9 +2,7 @@ package com.pizzara.data;
 
 import com.pizzara.model.Ingredient;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class IngredientDAO extends GenericDAO<Ingredient> {
     private static final String TABLE_NAME = "ingredient";
