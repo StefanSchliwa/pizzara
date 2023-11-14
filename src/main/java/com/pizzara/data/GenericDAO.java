@@ -1,19 +1,23 @@
 package com.pizzara.data;
 
 import javax.persistence.Id;
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class GenericDAO<T> {
     protected Connection connection;
+    private final Map<String, String> fieldToColumnMapping;
 
     public GenericDAO() {
         this.connection = DatabaseConnector.getConnection();
+        this.fieldToColumnMapping = createFieldToColumnMapping();
     }
 
     public T getById(int id, String tableName, Class<T> entityClass) {
@@ -60,9 +64,9 @@ public abstract class GenericDAO<T> {
     }
 
     public void deleteEntity(String tableName, T entity) {
-        Field[] fields = entity.getClass().getDeclaredFields();
-        fields[0].setAccessible(true);
-        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + fields[0].getName() + " = " + fields[0].get(entity))) {
+        Field primaryKeyField = getPrimaryKeyField((Class<T>) entity.getClass());
+        primaryKeyField.setAccessible(true);
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + getColumnName(primaryKeyField) + " = " + primaryKeyField.get(entity))) {
             preparedStatement.executeUpdate();
         } catch (SQLException | IllegalAccessException e) {
             e.printStackTrace();
@@ -92,7 +96,7 @@ public abstract class GenericDAO<T> {
             Field[] fields = entityClass.getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
-                String fieldName = field.getName();
+                String fieldName = getColumnName(field);
                 Object value = resultSet.getObject(fieldName);
                 field.set(entity, value);
             }
@@ -104,7 +108,7 @@ public abstract class GenericDAO<T> {
 
     private String getPrimaryKeyColumnName(Class<T> entityClass) {
         Field primaryKeyField = getPrimaryKeyField(entityClass);
-        return primaryKeyField.getName();
+        return getColumnName(primaryKeyField);
     }
 
     private Field getPrimaryKeyField(Class<T> entityClass) {
@@ -121,7 +125,7 @@ public abstract class GenericDAO<T> {
         StringBuilder query = new StringBuilder("INSERT INTO " + tableName + " (");
         Field[] fields = entity.getClass().getDeclaredFields();
         for (Field field : fields) {
-            query.append(field.getName()).append(", ");
+            query.append(getColumnName(field)).append(", ");
         }
         query.setLength(query.length() - 2); // Remove the last comma and space
         query.append(") VALUES (");
@@ -137,10 +141,10 @@ public abstract class GenericDAO<T> {
         StringBuilder query = new StringBuilder("UPDATE " + tableName + " SET ");
         Field[] fields = entity.getClass().getDeclaredFields();
         for (Field field : fields) {
-            query.append(field.getName()).append("=?, ");
+            query.append(getColumnName(field)).append("=?, ");
         }
         query.setLength(query.length() - 2); // Remove the last comma and space
-        query.append(" WHERE ").append(fields[0].getName()).append("=?");
+        query.append(" WHERE ").append(getPrimaryKeyColumnName((Class<T>) entity.getClass())).append("=?");
         return query.toString();
     }
 
@@ -153,5 +157,15 @@ public abstract class GenericDAO<T> {
             preparedStatement.setObject(parameterIndex, value);
             parameterIndex++;
         }
+    }
+
+    private String getColumnName(Field field) {
+        String fieldName = field.getName();
+        return fieldToColumnMapping.getOrDefault(fieldName, fieldName);
+    }
+
+    // Diese Methode kann überschrieben werden, um benutzerdefinierte Zuordnungen hinzuzufügen
+    protected Map<String, String> createFieldToColumnMapping() {
+        return new HashMap<>();
     }
 }

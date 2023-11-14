@@ -2,11 +2,11 @@ package com.pizzara.model;
 
 import javax.persistence.Id;
 
-public class Ingredient {
+public class Product {
     @Id
     private int id;
     private String name;
-    private String type;
+    private double price;
 
     public int getId() {
         return id;
@@ -24,16 +24,11 @@ public class Ingredient {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public double getPrice() {
+        return price;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Ingredient ID: " + id + ", Name: " + name + ", Type: " + type;
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
