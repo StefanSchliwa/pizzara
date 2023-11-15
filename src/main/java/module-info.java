@@ -5,7 +5,6 @@ module com.pizzara.pizzara {
     requires com.dlsc.formsfx;
     requires java.persistence;
     requires java.sql;
-    requires google.maps.services;
     requires javafaker;
 
     opens com.pizzara.gui to javafx.fxml;

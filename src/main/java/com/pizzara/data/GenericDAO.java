@@ -1,5 +1,7 @@
 package com.pizzara.data;
 
+import com.pizzara.annotations.Ignore;
+
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -90,17 +92,26 @@ public abstract class GenericDAO<T> {
         return entities;
     }
 
-    private T createEntityFromResultSet(ResultSet resultSet, Class<T> entityClass) throws SQLException {
+    private boolean isFieldIgnored(Field field) {
+        return field.isAnnotationPresent(Ignore.class);
+    }
+
+    public T createEntityFromResultSet(ResultSet resultSet, Class<T> entityClass) {
         T entity = null;
         try {
             entity = entityClass.getDeclaredConstructor().newInstance();
             Field[] fields = entityClass.getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
+
+                // Ignoriere Felder mit IgnoreInDatabase-Annotation
+                if (isFieldIgnored(field)) {
+                    continue;
+                }
+
                 String fieldName = getColumnName(field);
                 Object value = resultSet.getObject(fieldName);
 
-                // Konvertiere BigDecimal in Double, wenn das Feld ein double ist
                 if (field.getType() == double.class || field.getType() == Double.class) {
                     value = ((BigDecimal) value).doubleValue();
                 }
@@ -171,7 +182,6 @@ public abstract class GenericDAO<T> {
         return fieldToColumnMapping.getOrDefault(fieldName, fieldName);
     }
 
-    // Diese Methode kann überschrieben werden, um benutzerdefinierte Zuordnungen hinzuzufügen
     protected Map<String, String> createFieldToColumnMapping() {
         return new HashMap<>();
     }

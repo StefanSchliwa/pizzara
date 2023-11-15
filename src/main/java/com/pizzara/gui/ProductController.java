@@ -3,7 +3,7 @@ package com.pizzara.gui;
 import java.util.List;
 import java.util.Map;
 
-import com.pizzara.logic.ProductService;
+import com.pizzara.data.ProductDAO;
 import com.pizzara.model.Ingredient;
 import com.pizzara.model.Product;
 import javafx.collections.FXCollections;
@@ -16,7 +16,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 public class ProductController {
-    private final ProductService productService = new ProductService();
+    private final ProductDAO productDAO = new ProductDAO();
+
     @FXML
     private ListView<Product> productListView;
 
@@ -38,10 +39,9 @@ public class ProductController {
 
     @FXML
     private void readProductList() {
-        List<Product> products = productService.getAllProductsWithIngredientsAndQuantities();
+        List<Product> products = productDAO.getAllProductsWithIngredientsAndQuantitiesLoaded();
         ObservableList<Product> observableList = FXCollections.observableArrayList(products);
         productListView.setItems(observableList);
-
         productListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Product product, boolean empty) {

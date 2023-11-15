@@ -18,15 +18,6 @@ public class ProductDAO extends GenericDAO<Product> {
         return super.getById(id, TABLE_NAME, Product.class);
     }
 
-    @Override
-    protected Map<String, String> createFieldToColumnMapping() {
-        Map<String, String> mapping = new HashMap<>();
-
-        //mapping.put("javaFieldName", "databaseColumnName");
-
-        return mapping;
-    }
-
     public void insert(Product product) {
         super.insertEntity(TABLE_NAME, product);
     }
@@ -43,7 +34,7 @@ public class ProductDAO extends GenericDAO<Product> {
         return super.getAllEntities(TABLE_NAME, Product.class);
     }
 
-    public List<Product> getAllProductsWithIngredientsAndQuantities() {
+    public List<Product> getAllProductsWithIngredientsAndQuantitiesLoaded() {
         List<Product> products = new ArrayList<>();
 
         String sql = "SELECT p.id AS product_id, p.name AS product_name, p.price AS product_price, " +

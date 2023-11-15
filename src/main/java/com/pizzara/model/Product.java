@@ -1,11 +1,14 @@
 package com.pizzara.model;
 
+import com.pizzara.annotations.Ignore;
+
 import java.util.Map;
 
 public class Product {
     private int id;
     private String name;
     private double price;
+    @Ignore
     private Map<Ingredient, Integer> ingredientWithQuantities;
 
     public int getId() {

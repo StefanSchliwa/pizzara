@@ -1,6 +1,6 @@
 package com.pizzara.gui;
 
-import com.pizzara.logic.IngredientService;
+import com.pizzara.data.IngredientDAO;
 import com.pizzara.model.Ingredient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class IngredientController {
-    private final IngredientService ingredientService = new IngredientService();
+    private final IngredientDAO ingredientDAO = new IngredientDAO();
 
     @FXML
     private void switchToDashboard(ActionEvent event) throws IOException {
@@ -33,7 +33,7 @@ public class IngredientController {
 
     @FXML
     private void readIngredientList() {
-        List<Ingredient> ingredients = ingredientService.getAllIngredients();
+        List<Ingredient> ingredients = ingredientDAO.getAll();
         ObservableList<Ingredient> observableList = FXCollections.observableArrayList(ingredients);
         ingredientList.setItems(observableList);
     }
@@ -57,7 +57,7 @@ public class IngredientController {
                 Ingredient newIngredient = new Ingredient();
                 newIngredient.setName(nameResult.get());
                 newIngredient.setType(type);
-                ingredientService.createIngredient(newIngredient);
+                ingredientDAO.insert(newIngredient);
                 readIngredientList();
             });
         }
@@ -84,7 +84,7 @@ public class IngredientController {
                 newTypeResult.ifPresent(newType -> {
                     selectedIngredient.setName(newName);
                     selectedIngredient.setType(newType);
-                    ingredientService.updateIngredient(selectedIngredient);
+                    ingredientDAO.update(selectedIngredient);
                     readIngredientList();
                 });
             });
@@ -105,7 +105,7 @@ public class IngredientController {
             Optional<ButtonType> result = confirmAlert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                ingredientService.deleteIngredient(selectedIngredient);
+                ingredientDAO.delete(selectedIngredient);
                 readIngredientList();
             }
         } else {

@@ -1,9 +1,6 @@
 package com.pizzara.model;
 
-import javax.persistence.Id;
-
 public class Ingredient {
-    @Id
     private int id;
     private String name;
     private String type;
