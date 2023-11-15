@@ -6,29 +6,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class IngredientOverviewController {
+public class IngredientController {
     private final IngredientService ingredientService = new IngredientService();
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
-    public void switchToDashboard(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    private void switchToDashboard(ActionEvent event) throws IOException {
+        Navigator.switchStage(event, "dashboard");
     }
 
     @FXML
@@ -36,7 +28,6 @@ public class IngredientOverviewController {
 
     @FXML
     private void initialize() {
-        // Initialize the UI components or any other setup
         readIngredientList();
     }
 

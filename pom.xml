@@ -22,12 +22,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.maps</groupId>
-            <artifactId>google-maps-services</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>21.9.0.0</version>

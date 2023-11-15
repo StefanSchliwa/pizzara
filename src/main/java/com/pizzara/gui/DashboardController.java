@@ -1,31 +1,16 @@
 package com.pizzara.gui;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.fxml.FXML;
 
 public class DashboardController {
-    private Stage stage;
-    private Scene scene;
-
-    public void switchToProductConfigurator(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("product.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    private void switchToProductConfigurator(ActionEvent event) {
+        Navigator.switchStage(event,"product");
     }
 
-    public void switchToIngredientOverview(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("ingredient-overview.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    private void switchToIngredientOverview(ActionEvent event) {
+        Navigator.switchStage(event,"ingredient");
     }
 }

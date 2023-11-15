@@ -79,7 +79,7 @@ public class ProductDAO extends GenericDAO<Product> {
                 ingredient.setName(resultSet.getString("ingredient_name"));
                 ingredient.setType(resultSet.getString("ingredient_type"));
 
-                double quantity = resultSet.getDouble("ingredient_quantity");
+                Integer quantity = resultSet.getInt("ingredient_quantity");
 
                 product.getIngredientWithQuantities().put(ingredient, quantity);
             }

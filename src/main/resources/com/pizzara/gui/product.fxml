@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="669.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pizzara.gui.ProductController">
     <children>
         <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToDashboard" text="&lt;-- Dashboard" />
-        <Label layoutX="14.0" layoutY="53.0" text="Produktübersicht:" textAlignment="CENTER">
+        <Label layoutX="50.0" layoutY="53.0" text="Produktübersicht:" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>

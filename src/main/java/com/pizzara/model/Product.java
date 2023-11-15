@@ -6,7 +6,7 @@ public class Product {
     private int id;
     private String name;
     private double price;
-    private Map<Ingredient, Double> ingredientWithQuantities;
+    private Map<Ingredient, Integer> ingredientWithQuantities;
 
     public int getId() {
         return id;
@@ -32,11 +32,11 @@ public class Product {
         this.price = price;
     }
 
-    public Map<Ingredient, Double> getIngredientWithQuantities() {
+    public Map<Ingredient, Integer> getIngredientWithQuantities() {
         return ingredientWithQuantities;
     }
 
-    public void setIngredientWithQuantities(Map<Ingredient, Double> ingredientWithQuantities) {
+    public void setIngredientWithQuantities(Map<Ingredient, Integer> ingredientWithQuantities) {
         this.ingredientWithQuantities = ingredientWithQuantities;
     }
 }
