@@ -1,12 +1,12 @@
 package com.pizzara.model;
 
-import javax.persistence.Id;
+import java.util.Map;
 
 public class Product {
-    @Id
     private int id;
     private String name;
     private double price;
+    private Map<Ingredient, Double> ingredientWithQuantities;
 
     public int getId() {
         return id;
@@ -30,5 +30,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Map<Ingredient, Double> getIngredientWithQuantities() {
+        return ingredientWithQuantities;
+    }
+
+    public void setIngredientWithQuantities(Map<Ingredient, Double> ingredientWithQuantities) {
+        this.ingredientWithQuantities = ingredientWithQuantities;
     }
 }

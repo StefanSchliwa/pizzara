@@ -1,6 +1,7 @@
 package com.pizzara.data;
 
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GenericDAO<T> {
-    protected Connection connection;
     private final Map<String, String> fieldToColumnMapping;
+    protected Connection connection;
 
     public GenericDAO() {
         this.connection = DatabaseConnector.getConnection();
@@ -98,6 +99,12 @@ public abstract class GenericDAO<T> {
                 field.setAccessible(true);
                 String fieldName = getColumnName(field);
                 Object value = resultSet.getObject(fieldName);
+
+                // Konvertiere BigDecimal in Double, wenn das Feld ein double ist
+                if (field.getType() == double.class || field.getType() == Double.class) {
+                    value = ((BigDecimal) value).doubleValue();
+                }
+
                 field.set(entity, value);
             }
         } catch (Exception e) {
