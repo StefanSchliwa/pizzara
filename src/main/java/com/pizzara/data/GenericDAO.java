@@ -19,7 +19,7 @@ public abstract class GenericDAO<T> {
     protected Connection connection;
 
     public GenericDAO() {
-        this.connection = DatabaseConnector.getConnection();
+        this.connection = DatabaseConnectorOracle.getConnection();
         this.fieldToColumnMapping = createFieldToColumnMapping();
     }
 

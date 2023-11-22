@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnector {
+public class DatabaseConnectorMariaDB {
     private static final String URL = "jdbc:mariadb://pizzara.duckdns.org:666/pizzara";
     private static final String USERNAME = "pizzara";
     private static final String PASSWORD = "NB6TMmtKB1rapGoo870V";

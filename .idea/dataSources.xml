@@ -8,5 +8,13 @@
       <jdbc-url>jdbc:mariadb://pizzara.duckdns.org:666/pizzara</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Oracle" uuid="517dcfe0-6ce3-4cd3-ac15-791290adfa30">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@rs03-db-inf-min.ad.fh-bielefeld.de:1521:orcl</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
