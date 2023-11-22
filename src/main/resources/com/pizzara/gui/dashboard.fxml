@@ -13,6 +13,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="321.0" layoutY="152.0" mnemonicParsing="false" onAction="#switchToIngredientOverview" prefHeight="97.0" prefWidth="124.0" text="Zutatenübersicht" />
+      <Button layoutX="321.0" layoutY="152.0" mnemonicParsing="false" onAction="#switchToIngredientOverview" prefHeight="97.0" prefWidth="124.0" text="Zutaten" />
    </children>
 </AnchorPane>

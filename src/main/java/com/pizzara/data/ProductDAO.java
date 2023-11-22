@@ -18,18 +18,6 @@ public class ProductDAO extends GenericDAO<Product> {
         return super.getById(id, TABLE_NAME, Product.class);
     }
 
-    public void insert(Product product) {
-        super.insertEntity(TABLE_NAME, product);
-    }
-
-    public void update(Product product) {
-        super.updateEntity(TABLE_NAME, product);
-    }
-
-    public void delete(Product product) {
-        super.deleteEntity(TABLE_NAME, product);
-    }
-
     public List<Product> getAll() {
         return super.getAllEntities(TABLE_NAME, Product.class);
     }
@@ -82,5 +70,26 @@ public class ProductDAO extends GenericDAO<Product> {
         }
 
         return products;
+    }
+
+    public void updateProductIngredients(Product product) {
+        String updateSql = "UPDATE product_ingredient SET quantity = ? WHERE product_id = ? AND ingredient_id = ?";
+
+        try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
+            for (Map.Entry<Ingredient, Integer> entry : product.getIngredientWithQuantities().entrySet()) {
+                Ingredient ingredient = entry.getKey();
+                Integer quantity = entry.getValue();
+
+                updateStatement.setInt(1, quantity);
+                updateStatement.setInt(2, product.getId());
+                updateStatement.setInt(3, ingredient.getId());
+
+                updateStatement.addBatch();
+            }
+
+            updateStatement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

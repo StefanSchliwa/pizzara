@@ -1,10 +1,12 @@
 package com.pizzara.model;
 
-import com.pizzara.annotations.Ignore;
+import com.pizzara.data.annotations.ID;
+import com.pizzara.data.annotations.Ignore;
 
 import java.util.Map;
 
 public class Product {
+    @ID
     private int id;
     private String name;
     private double price;

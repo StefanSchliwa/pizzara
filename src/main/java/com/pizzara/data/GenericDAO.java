@@ -1,6 +1,6 @@
 package com.pizzara.data;
 
-import com.pizzara.annotations.Ignore;
+import com.pizzara.data.annotations.Ignore;
 
 import javax.persistence.Id;
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ public abstract class GenericDAO<T> {
         this.fieldToColumnMapping = createFieldToColumnMapping();
     }
 
-    public T getById(int id, String tableName, Class<T> entityClass) {
+    protected T getById(int id, String tableName, Class<T> entityClass) {
         T entity = null;
         String sql = "SELECT * FROM " + tableName + " WHERE " + getPrimaryKeyColumnName(entityClass) + " = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -39,7 +39,7 @@ public abstract class GenericDAO<T> {
         return entity;
     }
 
-    public void insertEntity(String tableName, T entity) {
+    protected void insertEntity(String tableName, T entity) {
         String sql = generateInsertQuery(tableName, entity);
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             setEntityParametersInPreparedStatement(entity, preparedStatement);
@@ -51,7 +51,7 @@ public abstract class GenericDAO<T> {
         }
     }
 
-    public void updateEntity(String tableName, T entity) {
+    protected void updateEntity(String tableName, T entity) {
         String sql = generateUpdateQuery(tableName, entity);
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             setEntityParametersInPreparedStatement(entity, preparedStatement);
@@ -66,7 +66,7 @@ public abstract class GenericDAO<T> {
         }
     }
 
-    public void deleteEntity(String tableName, T entity) {
+    protected void deleteEntity(String tableName, T entity) {
         Field primaryKeyField = getPrimaryKeyField((Class<T>) entity.getClass());
         primaryKeyField.setAccessible(true);
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + getColumnName(primaryKeyField) + " = " + primaryKeyField.get(entity))) {
@@ -96,7 +96,7 @@ public abstract class GenericDAO<T> {
         return field.isAnnotationPresent(Ignore.class);
     }
 
-    public T createEntityFromResultSet(ResultSet resultSet, Class<T> entityClass) {
+    private T createEntityFromResultSet(ResultSet resultSet, Class<T> entityClass) {
         T entity = null;
         try {
             entity = entityClass.getDeclaredConstructor().newInstance();

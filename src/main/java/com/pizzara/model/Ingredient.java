@@ -1,6 +1,9 @@
 package com.pizzara.model;
 
+import com.pizzara.data.annotations.ID;
+
 public class Ingredient {
+    @ID
     private int id;
     private String name;
     private String type;
